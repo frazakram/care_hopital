@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Billing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Hospital Billing System</h1>
+    <form action="{{ url_for('add_patient_route') }}" method="post">
+        <h2>Add New Patient</h2>
+        <label for="name">Patient Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <div id="diseases">
+            <label>Disease and Price:</label>
+            <input type="text" name="disease_name" placeholder="Disease Name" required>
+            <input type="number" name="disease_price" placeholder="Price" required><br>
+        </div>
+        <button type="button" onclick="addDisease()">Add Another Disease</button><br>
+        <label for="days_stayed">Days Stayed:</label>
+        <input type="number" id="days_stayed" name="days_stayed" required><br>
+        <label for="doctor">Doctor Name:</label>
+        <input type="text" id="doctor" name="doctor" required><br>
+        <button type="submit">Add Patient</button>
+    </form>
+    <br>
+    <form action="{{ url_for('generate_bill_route') }}" method="post">
+        <h2>Generate Bill</h2>
+        <label for="patient_name">Patient Name:</label>
+        <input type="text" id="patient_name" name="patient_name" required><br>
+        <button type="submit">Generate Bill</button>
+    </form>
+    <script>
+        function addDisease() {
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <input type="text" name="disease_name" placeholder="Disease Name" required>
+                <input type="number" name="disease_price" placeholder="Price" required><br>
+            `;
+            document.getElementById('diseases').appendChild(div);
+        }
+    </script>
+</body>
+</html>
